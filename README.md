@@ -1,4 +1,4 @@
-# Byte Beauty 💄
+# ByteBeauty 💄
 EDP Accelerator Capstone Project
 Group capstone project for the completion of EDP accelerator program, June 2024 cohort
 
