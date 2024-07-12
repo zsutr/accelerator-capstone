@@ -12,5 +12,5 @@ Project Type:
 - Online Store
   - Makeup Product Sales
  
-  
-
+API Reference:
+  https://makeup-api.herokuapp.com/ 
