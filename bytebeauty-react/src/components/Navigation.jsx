@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import "./Navigation.css";
 
 const Navigation = () => {
  return (
@@ -58,7 +59,7 @@ const Navigation = () => {
              </NavLink>
            </li>
            <li className="nav__item">
-             <NavLink to="/cart" className="nav__link nav__cta">
+             <NavLink to="/cart" className="nav__cta">
                Shopping Cart
              </NavLink>
            </li>

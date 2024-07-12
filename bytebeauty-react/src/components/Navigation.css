@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap");
+
+* {
+ box-sizing: border-box;
+ padding: 0;
+ margin: 0;
+}
+
+.header {
+ --header-height: 3.5rem;
+ --first-color: hsl(201, 61%, 43%);
+ --title-color: hsl(198, 88%, 10%);
+ ---text-color: hsl(0, 2%, 20%);
+ --body-color: hsl(0, 0%, 100%);
+ --body-font: "Montserrat", sans-serif;
+ --second-font: "Dancing Script", cursive;
+ --h2-font-size: 1.25rem;
+ --small-font-size: 0.813rem;
+ --z-tooltip: 10;
+ --z-fixed: 100;
+}
+
+body {
+ background-color: var(--body-color);
+ color: var(--text-color);
+ font-family: var(--body-font);
+}
+
+ul {
+ list-style: none;
+}
+
+a {
+ text-decoration: none;
+}
+
+.header {
+ position: fixed;
+ width: 100%;
+ top: 0;
+ left: 0;
+ background-color: rgb(203, 238, 251);
+ z-index: var(--z-fixed);
+}
+
+.nav {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ position: relative;
+ height: var(--header-height);
+ margin: 1rem;
+}
+
+.nav__logo {
+ color: var(--first-color);
+ transition: color 0.4s;
+ font-size: 36px;
+ font-family: var(--second-font);
+}
+
+
+.nav__cta {
+ background-color: var(--first-color);
+ color: var(--body-color);
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+ padding: 0.75rem 1.5rem;
+}
+
+.nav__list {
+ font-family: var(--body-font);
+ display: flex;
+ flex-direction: row;
+ column-gap:20px;
+}
+
+.nav__link {
+ color: var(--title-color);
+ font-weight: var(--font-semi-bold);
+ transition: color 0.4s;
+}
+
+.nav__link:hover {
+ color: var(--first-color);
+}
