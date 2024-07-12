@@ -1,19 +1,19 @@
 # ByteBeauty 💄
-##EDP Accelerator Capstone Project
+## EDP Accelerator Capstone Project
 
 Group capstone project for the completion of EDP accelerator program 
 *June 2024 cohort*
 
-###Dates of implementation:
+### Dates of implementation:
 July 12-16 2024
 
-###Group members: 
+### Group members: 
 - **Lindsey Sutermeister** (Hartford, CT)
 - **Ridwan Abdi** (St. Paul, MN)
 
-###Project Type:
+### Project Type:
 - Online Store
   - Makeup Product Sales
  
-###API Reference:
+### API Reference:
   https://makeup-api.herokuapp.com/ 
