@@ -1,3 +1,7 @@
+.body {
+    margin-top: 100px;
+}
+
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -18,3 +22,4 @@
     border-bottom: 1px solid #ccc;
     margin-bottom: 16px;
 }
+

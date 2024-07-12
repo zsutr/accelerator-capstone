@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from './components/Home';
+import "./App.css"
 
 // Create a context for products
 const ProductContext = createContext();
@@ -42,8 +43,9 @@ const ProductList = () => {
 
     return (
       <Router>
-        <div>
-          < Navigation/>
+        <div>< Navigation/></div>
+        
+        <div className="body"> 
             <h1>Products</h1>
             <div className="product-grid">
                 {products.map((product, index) => (
