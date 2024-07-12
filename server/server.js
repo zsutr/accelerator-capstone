@@ -1,5 +1,5 @@
 import {MongoClient, ObjectId} from 'mongodb'
-import cors from 'cors';
+//import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express'
 
@@ -10,9 +10,23 @@ const dbName = process.env.MONGO_DB;
 const app = express();
 const PORT = 3001;
 
-app.use(cors());
+//app.use(cors());
 app.use(express.json());
 
+app.get('/', async (req, res) => {
+    try {
+       const client = await MongoClient.connect(url);
+       const db = client.db(dbName);
+       const collection = db.collection("products")
+       const products = await collection.find().limit(15).toArray();
+
+       res.json(products);
+       console.log(products)
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("Couldn't load products");
+    }
+});
 app.get('/blush', async (req, res) => {
     try {
        const client = await MongoClient.connect(url);
