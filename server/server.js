@@ -1,5 +1,5 @@
 import {MongoClient, ObjectId} from 'mongodb'
-//import cors from 'cors';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express'
 
@@ -10,7 +10,7 @@ const dbName = process.env.MONGO_DB;
 const app = express();
 const PORT = 3001;
 
-//app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 app.get('/', async (req, res) => {

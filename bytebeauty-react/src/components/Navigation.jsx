@@ -1,10 +1,7 @@
-Navbar.js
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { IoClose, IoMenu } from "react-icons/io5";
-import "./Navbar.css";
 
-const Navbar = () => {
+const Navigation = () => {
  return (
    <header className="header">
      <nav className="nav container">
@@ -72,4 +69,4 @@ const Navbar = () => {
  );
 };
 
-export default Navbar;
+export default Navigation;

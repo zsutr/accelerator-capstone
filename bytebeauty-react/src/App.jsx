@@ -1,4 +1,12 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link
+} from "react-router-dom";
+import Navigation from "./components/Navigation";
+import Home from './components/Home';
 
 // Create a context for products
 const ProductContext = createContext();
@@ -33,7 +41,9 @@ const ProductList = () => {
     const products = useContext(ProductContext);
 
     return (
+      <Router>
         <div>
+          < Navigation/>
             <h1>Products</h1>
             <div className="product-grid">
                 {products.map((product, index) => (
@@ -54,6 +64,8 @@ const ProductList = () => {
                 ))}
             </div>
         </div>
+      </Router>
+        
     );
 };
 
