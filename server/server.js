@@ -118,6 +118,22 @@ app.get('/lipstick', async (req, res) => {
 });
  
 
+app.get('/:type', async (req, res) => {
+    const { type } = req.params;
+    try {
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection('products');
+      const products = await collection.find({ product_type: type }).toArray();
+      res.json(products);
+      console.log(products);
+    } catch (err) {
+      console.error('Error:', err);
+      res.status(500).send("Couldn't load products");
+    }
+  });
+
+  
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

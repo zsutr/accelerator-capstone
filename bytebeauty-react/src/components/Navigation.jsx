@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 import Search from "./Search.jsx"
+import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
- return (
-   <header className="header">
-     <nav className="nav container">
-       <NavLink to="/" className="nav__logo">
-         ByteBeauty
-       </NavLink>
+  return (
+    <header className="header">
+      <nav className="nav container">
+        <NavLink to="/" className="nav__logo">
+          ByteBeauty
+        </NavLink>
 
        <div
          className={"nav__menu"}
