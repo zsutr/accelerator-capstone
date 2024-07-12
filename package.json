@@ -1,0 +1,19 @@
+{
+  "name": "accelerator-capstone",
+  "version": "1.0.0",
+  "description": "Group capstone project for the completion of EDP accelerator program - *June 2024 cohort*",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0"
+  }
+}
