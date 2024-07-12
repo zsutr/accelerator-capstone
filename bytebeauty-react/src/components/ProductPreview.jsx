@@ -1,7 +1,7 @@
-const Home = (props) => {
+const ProductPreview = (props) => {
     return (
-     <div></div>
+     <div>Product Preview</div>
     );
 };
 
-export default Home;
+export default ProductPreview;
