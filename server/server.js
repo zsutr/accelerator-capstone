@@ -13,14 +13,11 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
-//
 app.get('/blush', async (req, res) => {
     try {
-       //const { id } = req.params;
        const client = await MongoClient.connect(url);
        const db = client.db(dbName);
        const collection = db.collection("products")
-      // const films_characters = await collection.find({ id: parseInt(id) }).toArray();
        const blushes = await collection.find({'product_type':'blush'}).toArray();
 
        res.json(blushes);
