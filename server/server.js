@@ -57,13 +57,16 @@ const getProducts = async (filter = {}, limit = 0) => {
 // Home route with limit of 15 products
 app.get('/', async (req, res) => {
   try {
-    const products = await getProducts({}, 15);
-    console.log('Fetched products:', products);  // Add this line for debugging
- 
-    res.json(products);
+     const client = await MongoClient.connect(url);
+     const db = client.db(dbName);
+     const collection = db.collection("products")
+     const products = await collection.find().limit(15).toArray();
+
+     res.json(products);
+     console.log(products)
   } catch (err) {
-    console.error('Error:', err);
-    res.status(500).send("Couldn't load products");
+      console.error("Error:", err);
+      res.status(500).send("Couldn't load products");
   }
 });
  
@@ -71,29 +74,34 @@ app.get('/', async (req, res) => {
 app.get('/products/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const client = await MongoClient.connect(url);
-    const db = client.db(dbName);
-    const collection = db.collection("products")
-    const product = await collection.findOne({ id: +id });
-    res.json(product);
-    console.log(product);
-  } catch (err) {
-    console.error("Error:", err);
-    res.status(500).send("Couldn't load product");
-  }
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection("products")
+      const product = await collection.findOne({ id: +id });
+
+      res.json(product);
+      console.log(product);
+   } catch (err) {
+       console.error("Error:", err);
+       res.status(500).send("Couldn't load products");
+   }
 });
  
 // Category route
 app.get('/category/:type', async (req, res) => {
-  const { type } = req.params;
-  try {
-    const products = await getProducts({ product_type: type });
-    res.json(products);
-  } catch (err) {
-    console.error('Error:', err);
-    res.status(500).send("Couldn't load products");
-  }
-});
+    const { type } = req.params;
+    try {
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection('products');
+      const products = await collection.find({ product_type: type }).toArray();
+      res.json(products);
+      console.log(products);
+    } catch (err) {
+      console.error('Error:', err);
+      res.status(500).send("Couldn't load products");
+    }
+  });
  
 // Search route
 app.post('/search', async (req, res) => {
