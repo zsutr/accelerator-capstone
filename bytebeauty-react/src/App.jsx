@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation";
 import Home from './components/Home';
 import ProductTypePage from './components/ProductType';
 import Cart from './components/Cart'; // Create an empty Cart component
+import ProductDetails from './components/ProductDetails';
  
 const App = () => {
   return (
@@ -13,11 +14,12 @@ const App = () => {
 
 <Router>
 <Navigation />
-<Routes>
-<Route path="/" element={<Home />} />
-<Route path="/:type" element={<ProductTypePage />} />
-<Route path="/cart" element={<Cart />} />
-</Routes>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/categories/:type" element={<ProductTypePage />} />
+    <Route path="/cart" element={<Cart />} />
+    <Route path="/products/:id" element={<ProductDetails />} />
+  </Routes>
 </Router>
 </>
   );
