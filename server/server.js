@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import axios from 'axios';
+import NodeCache from 'node-cache';
 
 dotenv.config();
 const url = process.env.MONGO_DB_URL;
@@ -14,53 +15,79 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
+const imageCache = new NodeCache({ stdTTL: 86400, checkperiod: 3600 }); // Cache for 1 day
+
 const checkImageLink = async (url) => {
+  if (imageCache.has(url)) {
+    return imageCache.get(url);
+  }
+
   try {
     const response = await axios.get(url);
-    return response.status === 200;
+    const isValid = response.status === 200;
+    imageCache.set(url, isValid);
+    return isValid;
   } catch {
+    imageCache.set(url, false);
     return false;
   }
 };
 
 const filterProductsWithValidImages = async (products) => {
-  const validProducts = [];
-  for (const product of products) {
-    if (await checkImageLink(product.image_link)) {
-      validProducts.push(product);
-    }
-  }
-  return validProducts;
+  const checkPromises = products.map(async (product) => {
+    const isValid = await checkImageLink(product.image_link);
+    return isValid ? product : null;
+  });
+
+  const results = await Promise.all(checkPromises);
+  return results.filter(product => product !== null);
 };
 
-const getProducts = async (filter = {}, limit = 0) => {
-    const client = await MongoClient.connect(url);
-    const db = client.db(dbName);
-    const collection = db.collection('products');
-    
-    let query = { ...filter, image_link: { $ne: '', $exists: true } };
-    let cursor = collection.find(query);
-    
-    if (limit > 0) {
-      cursor = cursor.limit(limit);
-    }
-    
-    try {
-      const products = await cursor.toArray();
-      const validProducts = await filterProductsWithValidImages(products);
-      await client.close();
-      return validProducts;
-    } catch (err) {
-      console.error('Error fetching products:', err);
-      throw err;
-    }
-  };
+const getProducts = async (filter = {}) => {
+  const client = await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  const db = client.db(dbName);
+  const collection = db.collection('products');
   
+  let query = { ...filter, image_link: { $ne: '', $exists: true } };
+  let cursor = collection.find(query);
+ 
+  
+  try {
+    const products = await cursor.toArray();
+    const validProducts = await filterProductsWithValidImages(products);
+    await client.close();
+    return validProducts;
+  } catch (err) {
+    await client.close();
+    console.error('Error fetching products:', err);
+    throw err;
+  }
+};
+
+const updateProducts = async () => {
+  const client = await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+  const db = client.db(dbName);
+  const collection = db.collection('products');
+
+  const products = await collection.find({}).toArray();
+
+  for (const product of products) {
+    const popularity = Math.floor(Math.random() * 100) + 1; // Random value between 1 and 100
+    const durability = Math.floor(Math.random() * 100) + 1; // Random value between 1 and 100
+    
+    await collection.updateOne(
+      { _id: product._id },
+      { $set: { popularity, durability } }
+    );
+  }
+
+  await client.close();
+};
 
 // Home route with limit of 15 products
 app.get('/', async (req, res) => {
   try {
-    const products = await getProducts({}, 15);
+    const products = await getProducts({});
     console.log('Fetched products:', products);  // Add this line for debugging
 
     res.json(products);
@@ -74,10 +101,11 @@ app.get('/', async (req, res) => {
 app.get('/products/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const client = await MongoClient.connect(url);
+    const client = await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
     const db = client.db(dbName);
     const collection = db.collection("products")
     const product = await collection.findOne({ id: +id });
+    await client.close();
  
     res.json(product);
     console.log(product);
@@ -111,6 +139,7 @@ app.post('/search', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await updateProducts(); // Call updateProducts when the server starts
   console.log(`Server is running on http://localhost:${PORT}`);
 });
