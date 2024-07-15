@@ -33,7 +33,7 @@ const ProductTypePage = () => {
                 e.target.src = '/lippie.jpg';
               }}
             />
-            <h2>{product.name}</h2>
+            <div className="fs-4 font-weight-bold">{product.name}</div>
             <p>${product.price}</p>
           </div>
         ))}

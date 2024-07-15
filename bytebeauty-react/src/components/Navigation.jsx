@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 import Search from "./Search.jsx"
-import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
   return (
@@ -13,7 +12,7 @@ const Navigation = () => {
         </NavLink>
 
        <div
-         className={"nav__menu"}
+         className="nav__menu"
          id="nav-menu">
          <ul className="nav__list">
            <li className="nav__item">
