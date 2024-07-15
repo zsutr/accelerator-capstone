@@ -14,6 +14,8 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
+
+
 const checkImageLink = async (url) => {
   try {
     const response = await axios.get(url);
@@ -53,16 +55,16 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.get('/:type', async (req, res) => {
-  const { type } = req.params;
-  try {
-    const products = await getProducts({ product_type: type });
-    res.json(products);
-  } catch (err) {
-    console.error('Error:', err);
-    res.status(500).send("Couldn't load products");
-  }
-});
+// app.get('/:type', async (req, res) => {
+//   const { type } = req.params;
+//   try {
+//     const products = await getProducts({ product_type: type });
+//     res.json(products);
+//   } catch (err) {
+//     console.error('Error:', err);
+//     res.status(500).send("Couldn't load products");
+//   }
+// });
 
 app.post('/search', async (req, res) => {
   const { searchTerm } = req.body;
@@ -74,6 +76,37 @@ app.post('/search', async (req, res) => {
     res.status(500).send("Couldn't load products");
   }
 });
+ 
+app.get('/products/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection("products")
+        const product = await collection.findOne({ id: +id });
+ 
+        res.json(product);
+        console.log(product);
+     } catch (err) {
+         console.error("Error:", err);
+         res.status(500).send("Couldn't load products");
+     }
+});
+
+app.get('/category/:type', async (req, res) => {
+    const { type } = req.params;
+    try {
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection('products');
+      const products = await collection.find({ product_type: type }).toArray();
+      res.json(products);
+      console.log(products);
+    } catch (err) {
+      console.error('Error:', err);
+      res.status(500).send("Couldn't load products");
+    }
+  });
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
