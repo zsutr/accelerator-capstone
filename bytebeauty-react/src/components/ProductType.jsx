@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
-const ProductTypePage = () => {
+const ProductTypePage = ({ searchResults }) => {
   const { type } = useParams();
   const [products, setProducts] = useState([]);
+  const displayProducts = searchResults.length > 0 ? searchResults : products;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -21,11 +22,15 @@ const ProductTypePage = () => {
     fetchProducts();
   }, [type]);
 
+  if (!displayProducts || displayProducts.length === 0) {
+    return <div>Loading...</div>; // You can customize the loading message
+  }
+
   return (
     <div>
       <h1>{type.charAt(0).toUpperCase() + type.slice(1)} Products</h1>
       <div className="product-grid">
-        {products.map((product) => (
+        {displayProducts.map((product) => (
           <div key={product._id} className="product-card">
             <img
               src={product.image_link}

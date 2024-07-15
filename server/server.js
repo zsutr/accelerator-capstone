@@ -1,7 +1,8 @@
-import {MongoClient, ObjectId} from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express from 'express'
+import express from 'express';
+import axios from 'axios';
 
 dotenv.config();
 const url = process.env.MONGO_DB_URL;
@@ -13,127 +14,67 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
+const checkImageLink = async (url) => {
+  try {
+    const response = await axios.get(url);
+    return response.status === 200;
+  } catch {
+    return false;
+  }
+};
+
+const filterProductsWithValidImages = async (products) => {
+  const validProducts = [];
+  for (const product of products) {
+    if (await checkImageLink(product.image_link)) {
+      validProducts.push(product);
+    }
+  }
+  return validProducts;
+};
+
+const getProducts = async (filter = {}) => {
+  const client = await MongoClient.connect(url);
+  const db = client.db(dbName);
+  const collection = db.collection('products');
+  const products = await collection.find({ ...filter, image_link: { $ne: '', $exists: true } }).toArray();
+  const validProducts = await filterProductsWithValidImages(products);
+  await client.close();
+  return validProducts;
+};
+
 app.get('/', async (req, res) => {
-    try {
-       const client = await MongoClient.connect(url);
-       const db = client.db(dbName);
-       const collection = db.collection("products")
-       const products = await collection.find().limit(15).toArray();
-
-       res.json(products);
-       console.log(products)
-    } catch (err) {
-        console.error("Error:", err);
-        res.status(500).send("Couldn't load products");
-    }
+  try {
+    const products = await getProducts();
+    res.json(products);
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send("Couldn't load products");
+  }
 });
-app.get('/blush', async (req, res) => {
-    try {
-       const client = await MongoClient.connect(url);
-       const db = client.db(dbName);
-       const collection = db.collection("products")
-       const blushes = await collection.find({'product_type':'blush'}).toArray();
-
-       res.json(blushes);
-       console.log(blushes)
-    } catch (err) {
-        console.error("Error:", err);
-        res.status(500).send("Couldn't load products");
-    }
-});
-
-app.get('/mascara', async (req, res) => {
-    try {
-       const client = await MongoClient.connect(url);
-       const db = client.db(dbName);
-       const collection = db.collection("products")
-       const mascaras = await collection.find({'product_type':'mascara'}).toArray();
-
-       res.json(mascaras);
-       console.log(mascaras);
-    } catch (err) {
-        console.error("Error:", err);
-        res.status(500).send("Couldn't load products");
-    }
-});
-
-app.get('/eyebrow', async (req, res) => {
-    try {
-       const client = await MongoClient.connect(url);
-       const db = client.db(dbName);
-       const collection = db.collection("products")
-       const eyebrows = await collection.find({'product_type':'eyebrow'}).toArray();
-
-       res.json(eyebrows);
-       console.log(eyebrows);
-    } catch (err) {
-        console.error("Error:", err);
-        res.status(500).send("Couldn't load products");
-    }
-});
-
-app.get('/eyeshadow', async (req, res) => {
-    try {
-       const client = await MongoClient.connect(url);
-       const db = client.db(dbName);
-       const collection = db.collection("products")
-       const eyeshadows = await collection.find({'product_type':'eyeshadow'}).toArray();
-
-       res.json(eyeshadows);
-       console.log(eyeshadows);
-    } catch (err) {
-        console.error("Error:", err);
-        res.status(500).send("Couldn't load products");
-    }
-});
-
-app.get('/foundation', async (req, res) => {
-    try {
-       const client = await MongoClient.connect(url);
-       const db = client.db(dbName);
-       const collection = db.collection("products")
-       const foundations = await collection.find({'product_type':'foundation'}).toArray();
-
-       res.json(foundations);
-       console.log(foundations)
-    } catch (err) {
-        console.error("Error:", err);
-        res.status(500).send("Couldn't load products");
-    }
-});
-
-app.get('/lipstick', async (req, res) => {
-    try {
-       const client = await MongoClient.connect(url);
-       const db = client.db(dbName);
-       const collection = db.collection("products")
-       const lipsticks = await collection.find({'product_type':'lipstick'}).toArray();
-
-       res.json(lipsticks);
-       console.log(lipsticks);
-    } catch (err) {
-        console.error("Error:", err);
-        res.status(500).send("Couldn't load products");
-    }
-});
- 
 
 app.get('/:type', async (req, res) => {
-    const { type } = req.params;
-    try {
-      const client = await MongoClient.connect(url);
-      const db = client.db(dbName);
-      const collection = db.collection('products');
-      const products = await collection.find({ product_type: type }).toArray();
-      res.json(products);
-      console.log(products);
-    } catch (err) {
-      console.error('Error:', err);
-      res.status(500).send("Couldn't load products");
-    }
-  });
+  const { type } = req.params;
+  try {
+    const products = await getProducts({ product_type: type });
+    res.json(products);
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send("Couldn't load products");
+  }
+});
 
-  
+app.post('/search', async (req, res) => {
+  const { searchTerm } = req.body;
+  try {
+    const products = await getProducts({ name: { $regex: searchTerm, $options: 'i' } });
+    res.json(products);
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send("Couldn't load products");
+  }
+});
+
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

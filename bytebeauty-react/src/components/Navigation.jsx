@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 import Search from "./Search.jsx"
 
-const Navigation = () => {
+const Navigation = ({setSearchResults}) => {
   return (
     <header className="header">
       <nav className="nav container">
@@ -61,7 +61,7 @@ const Navigation = () => {
                 </li>
                 </li>
             <li className="nav__item">
-                <Search />
+            <Search setSearchResults={setSearchResults} />
             </li>
             <li className="nav__item">
              <NavLink to="/cart" className="nav__cta">

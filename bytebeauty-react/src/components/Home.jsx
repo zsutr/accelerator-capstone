@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { ProductContext } from './ProductProvider'; // Adjust the import if the context is in a different file
+import { ProductContext } from './ProductProvider';
 
-const Home = () => {
+const Home = ({ searchResults }) => {
   const products = useContext(ProductContext);
+  const displayProducts = searchResults.length > 0 ? searchResults : products;
 
-  if (!products || products.length === 0) {
+  if (!displayProducts || displayProducts.length === 0) {
     return <div>Loading...</div>; // You can customize the loading message
   }
 
@@ -12,7 +13,7 @@ const Home = () => {
     <div>
       <h1>Home</h1>
       <div className="product-grid">
-        {products.map((product) => (
+        {displayProducts.map((product) => (
           <div key={product._id} className="product-card">
             <img
               src={product.image_link}
