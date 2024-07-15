@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
@@ -13,8 +13,6 @@ const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
-
-
 
 const checkImageLink = async (url) => {
   try {
@@ -35,19 +33,36 @@ const filterProductsWithValidImages = async (products) => {
   return validProducts;
 };
 
-const getProducts = async (filter = {}) => {
-  const client = await MongoClient.connect(url);
-  const db = client.db(dbName);
-  const collection = db.collection('products');
-  const products = await collection.find({ ...filter, image_link: { $ne: '', $exists: true } }).toArray();
-  const validProducts = await filterProductsWithValidImages(products);
-  await client.close();
-  return validProducts;
-};
+const getProducts = async (filter = {}, limit = 0) => {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection('products');
+    
+    let query = { ...filter, image_link: { $ne: '', $exists: true } };
+    let cursor = collection.find(query);
+    
+    if (limit > 0) {
+      cursor = cursor.limit(limit);
+    }
+    
+    try {
+      const products = await cursor.toArray();
+      const validProducts = await filterProductsWithValidImages(products);
+      await client.close();
+      return validProducts;
+    } catch (err) {
+      console.error('Error fetching products:', err);
+      throw err;
+    }
+  };
+  
 
+// Home route with limit of 15 products
 app.get('/', async (req, res) => {
   try {
-    const products = await getProducts();
+    const products = await getProducts({}, 15);
+    console.log('Fetched products:', products);  // Add this line for debugging
+
     res.json(products);
   } catch (err) {
     console.error('Error:', err);
@@ -55,17 +70,36 @@ app.get('/', async (req, res) => {
   }
 });
 
-// app.get('/:type', async (req, res) => {
-//   const { type } = req.params;
-//   try {
-//     const products = await getProducts({ product_type: type });
-//     res.json(products);
-//   } catch (err) {
-//     console.error('Error:', err);
-//     res.status(500).send("Couldn't load products");
-//   }
-// });
+// Product by ID route
+app.get('/products/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection("products")
+    const product = await collection.findOne({ id: +id });
+ 
+    res.json(product);
+    console.log(product);
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).send("Couldn't load product");
+  }
+});
 
+// Category route
+app.get('/category/:type', async (req, res) => {
+  const { type } = req.params;
+  try {
+    const products = await getProducts({ product_type: type });
+    res.json(products);
+  } catch (err) {
+    console.error('Error:', err);
+    res.status(500).send("Couldn't load products");
+  }
+});
+
+// Search route
 app.post('/search', async (req, res) => {
   const { searchTerm } = req.body;
   try {
@@ -76,37 +110,6 @@ app.post('/search', async (req, res) => {
     res.status(500).send("Couldn't load products");
   }
 });
- 
-app.get('/products/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-        const client = await MongoClient.connect(url);
-        const db = client.db(dbName);
-        const collection = db.collection("products")
-        const product = await collection.findOne({ id: +id });
- 
-        res.json(product);
-        console.log(product);
-     } catch (err) {
-         console.error("Error:", err);
-         res.status(500).send("Couldn't load products");
-     }
-});
-
-app.get('/category/:type', async (req, res) => {
-    const { type } = req.params;
-    try {
-      const client = await MongoClient.connect(url);
-      const db = client.db(dbName);
-      const collection = db.collection('products');
-      const products = await collection.find({ product_type: type }).toArray();
-      res.json(products);
-      console.log(products);
-    } catch (err) {
-      console.error('Error:', err);
-      res.status(500).send("Couldn't load products");
-    }
-  });
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
