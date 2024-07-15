@@ -3,9 +3,8 @@ import { NavLink } from "react-router-dom";
 import "./Navigation.css";
 import Search from "./Search.jsx"
 
-const Navigation = () => {
+const Navigation = ({setSearchResults}) => {
   return (
-    <div>
     <header className="header">
       <nav className="nav container">
         <NavLink to="/" className="nav__logo">
@@ -54,7 +53,7 @@ const Navigation = () => {
                         </NavLink>
                     </a>
                     <a>
-                        <NavLink to="categories/foundation" className="nav__link">
+                        <NavLink to="/categories/foundation" className="nav__link">
                             Foundation
                         </NavLink>
                     </a>
@@ -62,7 +61,7 @@ const Navigation = () => {
                 </li>
                 </li>
             <li className="nav__item">
-                <Search />
+            <Search setSearchResults={setSearchResults} />
             </li>
             <li className="nav__item">
              <NavLink to="/cart" className="nav__cta">
@@ -73,7 +72,6 @@ const Navigation = () => {
        </div>
      </nav>
    </header>
-   </div>
  );
 };
 
