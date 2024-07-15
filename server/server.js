@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import axios from 'axios';
-import NodeCache from 'node-cache';
+import NodeCache from 'node-cache'; // Ensure NodeCache is imported
 
 dotenv.config();
 const url = process.env.MONGO_DB_URL;
@@ -47,10 +47,10 @@ const getProducts = async (filter = {}) => {
   const client = await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
   const db = client.db(dbName);
   const collection = db.collection('products');
-  
+
   let query = { ...filter, image_link: { $ne: '', $exists: true } };
   let cursor = collection.find(query);
- 
+
   
   try {
     const products = await cursor.toArray();
@@ -62,26 +62,6 @@ const getProducts = async (filter = {}) => {
     console.error('Error fetching products:', err);
     throw err;
   }
-};
-
-const updateProducts = async () => {
-  const client = await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-  const db = client.db(dbName);
-  const collection = db.collection('products');
-
-  const products = await collection.find({}).toArray();
-
-  for (const product of products) {
-    const popularity = Math.floor(Math.random() * 100) + 1; // Random value between 1 and 100
-    const durability = Math.floor(Math.random() * 100) + 1; // Random value between 1 and 100
-    
-    await collection.updateOne(
-      { _id: product._id },
-      { $set: { popularity, durability } }
-    );
-  }
-
-  await client.close();
 };
 
 // Home route with limit of 15 products
@@ -103,10 +83,10 @@ app.get('/products/:id', async (req, res) => {
   try {
     const client = await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
     const db = client.db(dbName);
-    const collection = db.collection("products")
+    const collection = db.collection("products");
     const product = await collection.findOne({ id: +id });
     await client.close();
- 
+
     res.json(product);
     console.log(product);
   } catch (err) {
@@ -139,7 +119,6 @@ app.post('/search', async (req, res) => {
   }
 });
 
-app.listen(PORT, async () => {
-  await updateProducts(); // Call updateProducts when the server starts
+app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
