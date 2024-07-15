@@ -28,32 +28,32 @@ const Navigation = ({setSearchResults}) => {
                     <div class="dropdown-content">
                     
                     <a>
-                        <NavLink to="/blush" className="nav__link">
+                        <NavLink to="/categories/blush" className="nav__link">
                             Blush
                         </NavLink>
                     </a>
                     <a>
-                        <NavLink to="/mascara" className="nav__link" >
+                        <NavLink to="/categories/mascara" className="nav__link" >
                             Mascara
                         </NavLink>
                     </a>
                     <a>
-                        <NavLink to="/eyebrow" className="nav__link">
+                        <NavLink to="/categories/eyebrow" className="nav__link">
                             Eyebrows
                         </NavLink>  
                     </a>
                     <a>
-                        <NavLink to="/eyeshadow" className="nav__link">
+                        <NavLink to="/categories/eyeshadow" className="nav__link">
                             Eyeshadow
                         </NavLink>
                     </a>
                     <a> 
-                        <NavLink to="/lipstick" className="nav__link">
+                        <NavLink to="/categories/lipstick" className="nav__link">
                             Lipstick
                         </NavLink>
                     </a>
                     <a>
-                        <NavLink to="/foundation" className="nav__link">
+                        <NavLink to="/categories/foundation" className="nav__link">
                             Foundation
                         </NavLink>
                     </a>

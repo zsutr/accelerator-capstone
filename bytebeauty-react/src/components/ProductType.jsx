@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 const ProductTypePage = ({ searchResults }) => {
   const { type } = useParams();
@@ -9,7 +11,7 @@ const ProductTypePage = ({ searchResults }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/${type}`);
+        const response = await fetch(`http://localhost:3001/category/${type}`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -38,7 +40,7 @@ const ProductTypePage = ({ searchResults }) => {
                 e.target.src = '/lippie.jpg';
               }}
             />
-            <div className="fs-4 font-weight-bold">{product.name}</div>
+            <Link to={`/products/${product.id}`} className="fs-4 font-weight-bold">{product.name}</Link>
             <p>${product.price}</p>
           </div>
         ))}
