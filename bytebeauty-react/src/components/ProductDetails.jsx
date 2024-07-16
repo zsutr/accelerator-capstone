@@ -81,9 +81,9 @@ const ProductDetails =()=>{
                                 }}
                             />
                         </div>
-                        <a href="#" className="btn-lg btn-info  mb-2">
-                            Add To Cart
-                        </a>
+                        <button className="btn-lg btn-info " onClick={function handleClick() {
+                            alert(`${product.name} has been added to cart!`);
+                            }}>Add To Cart</button>
                         <div className="container my-4 mw-50" style={{width:'100%', height:'150px', overflowY:'auto', padding: '16px'}}>
                             <div className="fs-5">
                                 Product Description

@@ -21,21 +21,27 @@ const Cart =()=>{
                     <div className="container mb-2">
                         
                         <div className="fs-6 font-weight-bold text-wrap">1. CoverGirl Professional Mascara Curved Brush Very Black</div>
-                        <img className="img w-50" src = '/makeup.png' alt="makeup"/>
-                        <div>$ 7.50</div>
+                         <div>$ 7.50</div>
+                         <img className="img w-25" src = '/cart1.jpeg' alt="makeup"/>
+                       
                     </div>
-                    
+                    <hr class="bg-danger border-4 border-top border-info w-75" />
+
                     <div className="container mb-2">
                       
                         <div className="fs-6 font-weight-bold text-wrap">2. Annabelle SkinTrue Foundation</div>
-                        <img className="img w-50" src = '/makeup.png' alt="makeup"/>
                         <div>$ 13.50</div>
+                        <img className="img w-25" src = '/cart2.png' alt="makeup"/>
+                        
                     </div>
+                    <hr class="bg-danger border-4 border-top border-info w-75" />
+
                     <div className="container mb-2">
                       
                         <div className="fs-6 font-weight-bold text-wrap">3. Superpowder Double Face Makeup</div>
-                        <img className="img w-50" src = '/makeup.png' alt="makeup"/>
                         <div>$ 24.00</div>
+                        <img className="img w-25" src = '/cart3.jpg' alt="makeup"/>
+                        
                     </div>
 
                     <div className="container mb-2">
