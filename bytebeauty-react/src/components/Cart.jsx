@@ -1,9 +1,16 @@
 import React from "react";
 
+
+
 const Cart =()=>{
-    return(
+
+ 
+    
+ return(
         <>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <div className="container p-3">
+            
             <div className="fs-4 mb-2 font-weight-bold text-info">Shopping Cart</div>
             <div className="row ">
                 <div className="col-6 table-bordered me-3">
@@ -59,14 +66,14 @@ const Cart =()=>{
                             <input type="text" className="form-control mb-1" placeholder="City"></input>
                             <input type="text" className="form-control mb-1" placeholder="State"></input>
                             <input type="text" className="form-control mb-1" placeholder="Zip"></input>
-
+                            <input type="text" className="form-control mb-1" placeholder="Email Address"></input>
                         </div>
                     </form>
                     </div>
 
                     <hr class="bg-danger border-4 border-top border-info" />
 
-                    <div className="container mb-3">
+                    <div className="container mb-4">
                     <div className="fs-5 text-info me-2">Payment Details</div>
                     
              
@@ -74,18 +81,24 @@ const Cart =()=>{
                     <div className="mb-3">
                             <label htmlFor="payment" className="form-label ">Credit Card</label> 
                             <input type="text" className="form-control mb-1" placeholder="Card Number"></input>
-                            <input type="text" className="form-control mb-1" placeholder="Expiration"></input>
+                            <input type="text" className="form-control mb-1" placeholder="Expiration (MM/YY)"></input>
                             <input type="text" className="form-control mb-1" placeholder="CVC"></input>
                             <input type="text" className="form-control mb-1" placeholder="Zip"></input>
 
                         </div>
 
-                    <button className="btn-sm btn-info mb-2">Add Payment</button>
-</div>
-                    <hr class="bg-danger border-4 border-top border-info" />
-                    <button className="btn-lg btn-info ">Place Order</button>
+                    <button className="btn-sm btn-info mb-2"  onClick={function handleClick() {
+                    alert('Payment method accepted');
+                    }}>Add Payment</button>
+                    </div>
 
-                    
+                    <hr class="bg-danger border-4 border-top border-info" />
+                    <button className="btn-lg btn-info " onClick={function handleClick() {
+                    alert('Thank you for shopping with us!');
+                    }}>Place Order</button>
+
+                   
+                   
                 </div>
             </div>
             
