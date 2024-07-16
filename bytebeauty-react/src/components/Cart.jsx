@@ -53,8 +53,10 @@ const Cart =()=>{
 
                     <button className="btn-lg ">Place Order</button>
 
+                    
                 </div>
             </div>
+            
         </div>
         
         </>

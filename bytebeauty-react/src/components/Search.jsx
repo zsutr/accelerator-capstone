@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 const Search = ({ setSearchResults }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -35,7 +36,7 @@ const Search = ({ setSearchResults }) => {
         value={searchTerm}
         onChange={handleChange}
       />
-      <button className="btn btn-outline-success" type="submit">Search</button>
+      <button className="btn btn-outline-light" type="submit">Search</button>
     </form>
   );
 };

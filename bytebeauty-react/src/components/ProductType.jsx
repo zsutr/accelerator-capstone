@@ -31,8 +31,8 @@ const ProductTypePage = ({ searchResults }) => {
       <h1>{type.charAt(0).toUpperCase() + type.slice(1)} Products</h1>
       <div className="product-grid">
         {displayProducts.map((product) => (
-          <div key={product._id} className="product-card">
-            <img
+          <div key={product._id} className="card">
+            <img className="card-img-top"
               src={product.image_link}
               alt={product.name}
               onError={(e) => {
@@ -40,8 +40,10 @@ const ProductTypePage = ({ searchResults }) => {
                 e.target.src = '/lippie.jpg';
               }}
             />
-            <Link to={`/products/${product.id}`} className="fs-4 font-weight-bold">{product.name}</Link>
+            <div className="card-body">
+            <Link to={`/products/${product.id}`} className="fs-5 font-weight-bold">{product.name}</Link>
             <p>${product.price}</p>
+            </div>
           </div>
         ))}
       </div>

@@ -6,6 +6,7 @@ import ProductTypePage from './components/ProductType';
 import Cart from './components/Cart'; // Create an empty Cart component
 import { ProductProvider } from './components/ProductProvider';
 import ProductDetails from './components/ProductDetails';
+import utf8 from 'utf8';
  
 const App = () => {
   const [searchResults, setSearchResults] = useState([]);

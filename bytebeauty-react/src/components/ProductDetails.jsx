@@ -31,7 +31,7 @@ const ProductDetails =()=>{
         <>
          <div className="container navMarg">
             <div className="row">
-                <div className="col-8">
+                <div className="col-8 mr-4 table-bordered">
                     <div className="container mx-auto justify-content-center">
                         <div className="text fw-bold fs-3" >{product.name}</div>
                         <div className="fs-5">By {product.brand} | $ {product.price} </div>
@@ -57,15 +57,25 @@ const ProductDetails =()=>{
                         
                     </div>
                 </div>
-                <div className="col-4">
-                    <div className="fs-4"> Recommended Products </div>
+                
+                <div className="col-sm-3">
+                    <div className="fs-5"> Recommended Products </div>
                     
 
-                    <div className="container border-1 mb-2">
+                    <div key={product._id} className="card p-0">
+                        <img className="card-img-top"
+                        src={product.image_link}
+                        alt={product.name}
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = '/lippie.jpg';
+                        }}
+                        />
+                        <div className="card-body">
+                        <Link to={`/products/${product.id}`} className="fs-6 text-dark font-weight-bold">{product.name}</Link>
+                        <p>${product.price}</p>
+                        </div>
                         
-                        <div className="fs-5">Product Name</div>
-                        <div>Product Image</div>
-                        <div>Product Price</div>
                     </div>
                     
                     <div className="container mb-2">
