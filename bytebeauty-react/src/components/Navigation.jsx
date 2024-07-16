@@ -7,7 +7,7 @@ import { FaShoppingCart } from "react-icons/fa";
 
 
 
-const Navigation = () => {
+const Navigation = ({setSearchResults}) => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-info fs-5 text-light">
@@ -67,82 +67,16 @@ const Navigation = () => {
           </ul>
         </li>
       </ul>
-      <form className="d-flex" role="search">
-        <Search/>
-      </form>
+      <li className="d-flex" role="search">
+        <Search setSearchResults={setSearchResults} />
+      </li>
       <NavLink to="/cart" className="nav__cta">
         <FaShoppingCart />
       </NavLink>
     </div>
   </div>
 </nav>
-    {/* <header className="header">
-      <nav className="nav container">
-        <NavLink to="/" className="nav__logo">
-          ByteBeauty
-        </NavLink>
-
-       <div
-         className="nav__menu"
-         id="nav-menu">
-         <ul className="nav__list">
-           <li className="nav__item">
-             <NavLink to="/" className="nav__link">
-               Home
-             </NavLink>
-           </li>
-         
-           <li className="nav__item">
-         
-            <li className="dropdown">
-                    <a href="javascript:void(0)" className="dropbtn">Shop by Category ⇩</a>
-                    <div className="dropdown-content">
-                    
-                    <a>
-                        <NavLink to="/categories/blush" className="nav__link">
-                            Blush
-                        </NavLink>
-                    </a>
-                    <a>
-                        <NavLink to="/categories/mascara" className="nav__link" >
-                            Mascara
-                        </NavLink>
-                    </a>
-                    <a>
-                        <NavLink to="/categories/eyebrow" className="nav__link">
-                            Eyebrows
-                        </NavLink>  
-                    </a>
-                    <a>
-                        <NavLink to="/categories/eyeshadow" className="nav__link">
-                            Eyeshadow
-                        </NavLink>
-                    </a>
-                    <a> 
-                        <NavLink to="/categories/lipstick" className="nav__link">
-                            Lipstick
-                        </NavLink>
-                    </a>
-                    <a>
-                        <NavLink to="categories/foundation" className="nav__link">
-                            Foundation
-                        </NavLink>
-                    </a>
-                    </div>
-                </li>
-                </li>
-            <li className="nav__item">
-                <Search />
-            </li>
-            <li className="nav__item">
-             <NavLink to="/cart" className="nav__cta">
-               Shopping Cart
-             </NavLink>
-           </li>
-         </ul>
-       </div>
-     </nav>
-   </header> */}
+    
    </div>
  );
 };
