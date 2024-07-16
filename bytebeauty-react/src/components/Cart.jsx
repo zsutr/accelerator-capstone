@@ -1,9 +1,9 @@
 import React from "react";
-
+import { useCart } from './CartProvider';
 
 
 const Cart =()=>{
-
+    const { cartItems } = useCart();
  
     
  return(
@@ -17,6 +17,14 @@ const Cart =()=>{
                     <div className="col-sm">
             <div className="fs-5 text-info pt-2">Products in Cart</div>
             <hr class="bg-danger border-4 border-top border-info" />
+
+                    <ul>
+                        {cartItems.map((item, index) => (
+                            <li key={index}>{item.name} - {item.price} </li>
+                        )
+                        )}
+
+                    </ul>
 
                     <div className="container mb-2">
                         

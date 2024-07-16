@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom";
 import "./ProductDetails.css"
-
+import { useCart } from './CartProvider'
 
 const ProductDetails =()=>{
     const { id } = useParams();
     const [product, setProduct] = useState([]);
     const [recc, setRecc] = useState([])
+    const { addToCart } = useCart();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -59,6 +60,11 @@ const ProductDetails =()=>{
     }, [price, durability, popularity]);
 
     console.log(recc)
+
+    const handleAddToCart = () => {
+        addToCart(product);
+        alert('Product Added to Cart!');
+    };
         
     return(
         
@@ -81,9 +87,9 @@ const ProductDetails =()=>{
                                 }}
                             />
                         </div>
-                        <button className="btn-lg btn-info " onClick={function handleClick() {
-                            alert(`${product.name} has been added to cart!`);
-                            }}>Add To Cart</button>
+                        <button className="btn-lg btn-info " onClick={handleAddToCart}>
+                            Add To Cart
+                        </button>
                         <div className="container my-4 mw-50" style={{width:'100%', height:'150px', overflowY:'auto', padding: '16px'}}>
                             <div className="fs-5">
                                 Product Description

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink , Link } from "react-router-dom";
 import "./Navigation.css";
 import Search from "./Search.jsx"
 import { MdMenu } from "react-icons/md";
@@ -13,9 +13,9 @@ const Navigation = ({setSearchResults}) => {
       <nav className="navbar navbar-expand-lg bg-info fs-5 text-light">
   <div className="container-fluid">
     
-    <a class="navbar-brand" href="/">
+    <Link to="/" class="navbar-brand">
       <img src="/logo.png" alt="Bootstrap" width="300"/>
-    </a>
+    </Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
     aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +24,7 @@ const Navigation = ({setSearchResults}) => {
     <div className="collapse navbar-collapse " id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
         <li className="nav-item me-2">
-          <a className="btn btn-md btn-outline-light" aria-current="page" href="/">Home</a>
+          <Link to="/" className="btn btn-md btn-outline-light" aria-current="page">Home</Link>
         </li>
         <li className="nav-item dropdown">
           <a className="dropdown-toggle btn btn-outline-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
