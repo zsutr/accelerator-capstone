@@ -20,37 +20,32 @@ const Cart =()=>{
 
                     <ul>
                         {cartItems.map((item, index) => (
-                            <li key={index}>{item.name} - {item.price} </li>
+                            <li key={index}>
+                                <div className="container mb-3">
+                        
+                                    <div className="fs-6 font-weight-bold text-wrap">{item.name}</div>
+                                    <div>${(+item.price).toFixed(2)}</div>
+                                    <img className="img w-25" src ={item.image_link} alt="makeup"/>
+                           
+                                </div>
+                            </li>
                         )
                         )}
+                        <li><div className="container mb-2">
+                      
+                      <div className="fs-6 font-weight-bold text-wrap">Superpowder Double Face Makeup</div>
+                      <div>$ 24.00</div>
+                      <img className="img w-25" src = '/cart3.jpg' alt="makeup"/>
+                      
+                  </div></li>
+
+
 
                     </ul>
 
-                    <div className="container mb-2">
-                        
-                        <div className="fs-6 font-weight-bold text-wrap">1. CoverGirl Professional Mascara Curved Brush Very Black</div>
-                         <div>$ 7.50</div>
-                         <img className="img w-25" src = '/cart1.jpeg' alt="makeup"/>
-                       
-                    </div>
-                    <hr class="bg-danger border-4 border-top border-info w-75" />
+                    
 
-                    <div className="container mb-2">
-                      
-                        <div className="fs-6 font-weight-bold text-wrap">2. Annabelle SkinTrue Foundation</div>
-                        <div>$ 13.50</div>
-                        <img className="img w-25" src = '/cart2.png' alt="makeup"/>
-                        
-                    </div>
-                    <hr class="bg-danger border-4 border-top border-info w-75" />
-
-                    <div className="container mb-2">
-                      
-                        <div className="fs-6 font-weight-bold text-wrap">3. Superpowder Double Face Makeup</div>
-                        <div>$ 24.00</div>
-                        <img className="img w-25" src = '/cart3.jpg' alt="makeup"/>
-                        
-                    </div>
+                    
 
                     <div className="container mb-2">
                     <hr class="bg-danger border-4 border-top border-info" />
