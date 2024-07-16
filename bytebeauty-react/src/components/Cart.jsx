@@ -1,57 +1,89 @@
 import React from "react";
 
 const Cart =()=>{
-    console.log("SHOPPOMGGG CARTTTT");
     return(
         <>
-        <div className="container " style={{width:'100%', marginTop:'150px'}}>
-            <div className="fs-4 ">Shopping Cart</div>
+        <div className="container p-3">
+            <div className="fs-4 mb-2 font-weight-bold text-info">Shopping Cart</div>
             <div className="row ">
                 <div className="col-6 table-bordered me-3">
-            <div className="fs-6">Products in Cart</div>
-            <div className="container mb-2">
+                    <div className="col-sm">
+            <div className="fs-5 text-info pt-2">Products in Cart</div>
+            <hr class="bg-danger border-4 border-top border-info" />
+
+                    <div className="container mb-2">
                         
-                    <div className="fs-5">1. Product Name</div>
-                        <div>Product Image</div>
-                        <div>Product Price</div>
+                        <div className="fs-6 font-weight-bold text-wrap">1. CoverGirl Professional Mascara Curved Brush Very Black</div>
+                        <img className="img w-50" src = '/makeup.png' alt="makeup"/>
+                        <div>$ 7.50</div>
                     </div>
                     
                     <div className="container mb-2">
                       
-                        <div className="fs-5">2. Product Name</div>
-                        <div>Product Image</div>
-                        <div>Product Price</div>
+                        <div className="fs-6 font-weight-bold text-wrap">2. Annabelle SkinTrue Foundation</div>
+                        <img className="img w-50" src = '/makeup.png' alt="makeup"/>
+                        <div>$ 13.50</div>
                     </div>
                     <div className="container mb-2">
                       
-                        <div className="fs-5">3. Product Name</div>
-                        <div>Product Image</div>
-                        <div>Product Price</div>
+                        <div className="fs-6 font-weight-bold text-wrap">3. Superpowder Double Face Makeup</div>
+                        <img className="img w-50" src = '/makeup.png' alt="makeup"/>
+                        <div>$ 24.00</div>
                     </div>
+
                     <div className="container mb-2">
-                      
-                      <div className="fs-6"></div>
-                      <div>Product Image</div>
-                      <div>Product Price</div>
+                    <hr class="bg-danger border-4 border-top border-info" />
+                      <div className="fs-6 font-weight-bold text-wrap">Totals</div>
+                     
+                      <div>Subtotal ...... $ 45.00</div>
+                      <div>Taxes .............. $  3.15</div>
+                      <div>Shipping ..... $  6.99</div>
+                      <hr class="bg-danger border-4 border-top border-info" />
+                      <div className="fs-5 font-weight-bold text-info">Total: 55.14</div>
+
+                  </div>
                   </div>
                 </div>
+                
                 <div className="col-4  table-bordered">
-                    <div className="container mb-4">
-                    <div className="fs-5 me-2">Customer Details</div>
-                    <div className="fs-6 me-2">?Name Input</div>
-                    <div className="fs-6 me-2">?Address</div>
-                    <div className="fs-6 me-2">?Phone Number</div>
+                    <div className="container mb-4 pt-2">
+                    <div className="fs-5 text-info me-2">Customer Details</div>
+                    <form>
+                        <div className="mb-3">
+                            <label htmlFor="name"className="form-label ">Name</label> 
+                            <input type="text"  id="name" className="form-control" placeholder="Full Name"></input>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="address" className="form-label ">Address</label> 
+                            <input type="text" className="form-control mb-1" placeholder="Street Address"></input>
+                            <input type="text" className="form-control mb-1" placeholder="City"></input>
+                            <input type="text" className="form-control mb-1" placeholder="State"></input>
+                            <input type="text" className="form-control mb-1" placeholder="Zip"></input>
+
+                        </div>
+                    </form>
                     </div>
 
-                    <div className="container mb-2">
-                    <div className="fs-5 me-2">Payment Details</div>
-                    <div className="fs-6 me-2">?Card type selector</div>
-                    <div className="fs-6 me-2">?Card number</div>
-                    <div className="fs-6 me-2">?Zip code</div>
-                    </div>
-                    <button className="btn-sm btn-secondary mb-2">Submit Payment Method</button>
+                    <hr class="bg-danger border-4 border-top border-info" />
 
-                    <button className="btn-lg ">Place Order</button>
+                    <div className="container mb-3">
+                    <div className="fs-5 text-info me-2">Payment Details</div>
+                    
+             
+
+                    <div className="mb-3">
+                            <label htmlFor="payment" className="form-label ">Credit Card</label> 
+                            <input type="text" className="form-control mb-1" placeholder="Card Number"></input>
+                            <input type="text" className="form-control mb-1" placeholder="Expiration"></input>
+                            <input type="text" className="form-control mb-1" placeholder="CVC"></input>
+                            <input type="text" className="form-control mb-1" placeholder="Zip"></input>
+
+                        </div>
+
+                    <button className="btn-sm btn-info mb-2">Add Payment</button>
+</div>
+                    <hr class="bg-danger border-4 border-top border-info" />
+                    <button className="btn-lg btn-info ">Place Order</button>
 
                     
                 </div>

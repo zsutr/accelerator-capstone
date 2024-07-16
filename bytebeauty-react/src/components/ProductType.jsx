@@ -28,8 +28,10 @@ const ProductTypePage = ({ searchResults }) => {
 
   return (
     <div>
-      <h1>{type.charAt(0).toUpperCase() + type.slice(1)} Products</h1>
+      <h4 className="text-info p-3">{type.charAt(0).toUpperCase() + type.slice(1)} Products</h4>
+      
       <div className="product-grid">
+        
         {displayProducts.map((product) => (
           <div key={product._id} className="card">
             <img className="card-img-top"
@@ -41,8 +43,9 @@ const ProductTypePage = ({ searchResults }) => {
               }}
             />
             <div className="card-body">
-            <Link to={`/products/${product.id}`} className="fs-5 font-weight-bold">{product.name}</Link>
-            <p>${product.price}</p>
+            <Link to={`/products/${product.id}`} className="fs-6 text-dark font-weight-bold">{product.name}</Link>
+            <p className="fst-italic">{product.brand}</p>
+            <p>${(+product.price).toFixed(2)}</p>
             </div>
           </div>
         ))}

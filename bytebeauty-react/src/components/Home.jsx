@@ -14,8 +14,10 @@ const Home = ({ searchResults }) => {
   return (
     <div className="p-3">
       <h2 className="text-info">Welcome to ByteBeauty!</h2>
-      <hr className="text-info"/>
+    
       <h4 className="text-info">Viewing All Products</h4>
+      <hr class="bg-danger border-4 border-top border-info" />
+
       <div className="product-grid">
         {displayProducts.map((product) => (
           <div key={product._id} className="card">
@@ -28,8 +30,9 @@ const Home = ({ searchResults }) => {
               }}
             />
             <div className="card-body">
-            <Link to={`/products/${product.id}`} className="fs-5 text-dark font-weight-bold">{product.name}</Link>
-            <p>${product.price}</p>
+            <Link to={`/products/${product.id}`} className="fs-6 text-dark font-weight-bold">{product.name}</Link>
+            <p className="fst-italic">{product.brand}</p>
+            <p>${product.price}0</p>
             </div>
             
           </div>
